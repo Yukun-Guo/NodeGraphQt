@@ -426,6 +426,9 @@ class NodePropEditorWidget(QtWidgets.QWidget):
 
         # populate tab properties.
         for tab in sorted(tab_mapping.keys()):
+            # skip reserved tabs as they are handled separately below
+            if tab in reserved_tabs:
+                continue
             prop_window = self.__tab_windows[tab]
             for prop_name, value in tab_mapping[tab]:
                 wid_type = model.get_widget_type(prop_name)
