@@ -18,6 +18,18 @@ from NodeGraphQt.widgets.node_widgets import (
     NodeComboBox,
     NodeLineEdit,
     NodeTextEdit,
+    NodeDoubleSpinBox,
+    NodeColorPicker,
+    NodeColor4Picker,
+    NodeSlider,
+    NodeDoubleSlider,
+    NodeFileOpen,
+    NodeFileSave,
+    NodeVector2,
+    NodeVector3,
+    NodeVector4,
+    NodeFloat,
+    NodeInt,
 )
 
 
@@ -335,6 +347,402 @@ class BaseNode(NodeObject):
             tab=tab
         )
         widget = NodeCheckBox(self.view, name, label, text, state)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_spinbox(self, name, label='', value=0, min_val=0, max_val=100,
+                    tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a QSpinBox widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (int): initial value.
+            min_val (int): minimum value.
+            max_val (int): maximum value.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        from NodeGraphQt.widgets.node_widgets import NodeSpinner
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.QSPIN_BOX.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeSpinner(self.view, name, label, value, min_val, max_val)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_double_spinbox(self, name, label='', value=0.0, min_val=0.0,
+                          max_val=100.0, decimals=2, tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a QDoubleSpinBox widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (float): initial value.
+            min_val (float): minimum value.
+            max_val (float): maximum value.
+            decimals (int): number of decimal places.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.QDOUBLESPIN_BOX.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeDoubleSpinBox(self.view, name, label, value, min_val, max_val, decimals)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_color_picker(self, name, label='', color=(0, 0, 0), tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Color Picker (RGB) widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            color (tuple): initial RGB color as (r, g, b) tuple (0-255).
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=color,
+            widget_type=NodePropWidgetEnum.COLOR_PICKER.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeColorPicker(self.view, name, label, color)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_color4_picker(self, name, label='', color=(0, 0, 0, 255), tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Color Picker (RGBA) widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            color (tuple): initial RGBA color as (r, g, b, a) tuple (0-255).
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=color,
+            widget_type=NodePropWidgetEnum.COLOR4_PICKER.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeColor4Picker(self.view, name, label, color)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_slider(self, name, label='', value=0, min_val=0, max_val=100,
+                  tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds an Integer Slider widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (int): initial value.
+            min_val (int): minimum value.
+            max_val (int): maximum value.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.SLIDER.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeSlider(self.view, name, label, value, min_val, max_val)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_double_slider(self, name, label='', value=0.0, min_val=0.0, max_val=100.0,
+                         decimals=2, tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Double Slider widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (float): initial value.
+            min_val (float): minimum value.
+            max_val (float): maximum value.
+            decimals (int): number of decimal places.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.DOUBLE_SLIDER.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeDoubleSlider(self.view, name, label, value, min_val, max_val, decimals)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_file_open(self, name, label='', file_path='', file_filter='All Files (*)',
+                     tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a File Open selector widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            file_path (str): initial file path.
+            file_filter (str): file type filter (e.g., 'Images (*.png *.jpg)').
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=file_path,
+            widget_type=NodePropWidgetEnum.FILE_OPEN.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeFileOpen(self.view, name, label, file_path, file_filter)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_file_save(self, name, label='', file_path='', file_filter='All Files (*)',
+                     tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a File Save selector widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            file_path (str): initial file path.
+            file_filter (str): file type filter (e.g., 'Images (*.png *.jpg)').
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=file_path,
+            widget_type=NodePropWidgetEnum.FILE_SAVE.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeFileSave(self.view, name, label, file_path, file_filter)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_vector2(self, name, label='', value=(0.0, 0.0), tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Vector2 widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (tuple): initial (x, y) vector values.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.VECTOR2.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeVector2(self.view, name, label, value)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_vector3(self, name, label='', value=(0.0, 0.0, 0.0), tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Vector3 widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (tuple): initial (x, y, z) vector values.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.VECTOR3.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeVector3(self.view, name, label, value)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_vector4(self, name, label='', value=(0.0, 0.0, 0.0, 0.0), tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Vector4 widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (tuple): initial (x, y, z, w) vector values.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.VECTOR4.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeVector4(self.view, name, label, value)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_float(self, name, label='', value=0.0, tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds a Float line edit widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (float): initial float value.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.FLOAT.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeFloat(self.view, name, label, value)
+        widget.setToolTip(tooltip or '')
+        widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+        #: redraw node to address calls outside the "__init__" func.
+        self.view.draw_node()
+
+    def add_int(self, name, label='', value=0, tooltip=None, tab=None):
+        """
+        Creates a custom property and embeds an Int line edit widget into the node.
+
+        Note:
+            The ``value_changed`` signal from the added node widget is wired
+            up to the :meth:`NodeObject.set_property` function.
+
+        Args:
+            name (str): name for the custom property.
+            label (str): label to be displayed.
+            value (int): initial integer value.
+            tooltip (str): widget tooltip.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name,
+            value=value,
+            widget_type=NodePropWidgetEnum.INT.value,
+            widget_tooltip=tooltip,
+            tab=tab
+        )
+        widget = NodeInt(self.view, name, label, value)
         widget.setToolTip(tooltip or '')
         widget.value_changed.connect(lambda k, v: self.set_property(k, v))
         self.view.add_widget(widget)
