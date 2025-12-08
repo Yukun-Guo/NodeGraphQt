@@ -441,7 +441,7 @@ class NodeTextEdit(NodeBaseWidget):
         Returns:
             str: current text.
         """
-        return str(self.get_custom_widget().text())
+        return str(self.get_custom_widget().toPlainText())
 
     def set_value(self, text=''):
         """
