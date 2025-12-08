@@ -87,7 +87,7 @@ class ViewerEnum(Enum):
     #: grid line color.
     GRID_COLOR = (45, 45, 45)
     #: item border color.
-    ITEM_BORDER_COLOR = (25, 25, 25)
+    ITEM_BORDER_COLOR = (65, 65, 65)
 
 class ViewerNavEnum(Enum):
     """
