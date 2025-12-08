@@ -74,6 +74,15 @@ class BaseNode(NodeObject):
         super(BaseNode, self).__init__(qgraphics_item or NodeItem)
         self._inputs = []
         self._outputs = []
+        
+        # Create the info property for node documentation
+        self.create_property(
+            'info',
+            value='',
+            widget_type=NodePropWidgetEnum.QTEXT_EDIT.value,
+            widget_tooltip='Node information and description',
+            tab='Node'
+        )
 
     def update_model(self):
         """
@@ -156,6 +165,24 @@ class BaseNode(NodeObject):
             str: icon image file path.
         """
         return self.model.icon
+
+    def set_info(self, info=''):
+        """
+        Set the node information text.
+
+        Args:
+            info (str): information text to describe the node.
+        """
+        self.set_property('info', info)
+
+    def info(self):
+        """
+        Get the node information text.
+
+        Returns:
+            str: node information text.
+        """
+        return self.get_property('info')
 
     def widgets(self):
         """
