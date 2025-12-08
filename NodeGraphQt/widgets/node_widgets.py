@@ -383,6 +383,78 @@ class NodeLineEdit(NodeBaseWidget):
         if text != self.get_value():
             self.get_custom_widget().setText(text)
             self.on_value_changed()
+
+class NodeTextEdit(NodeBaseWidget):
+    """
+    Displays as a ``QTextEdit`` in a node.
+
+    .. inheritance-diagram:: NodeGraphQt.widgets.node_widgets.NodeTextEdit
+        :parts: 1
+
+    .. note::
+        `To embed a` ``QTextEdit`` `in a node see func:`
+        :meth:`NodeGraphQt.BaseNode.add_text_input`
+    """
+
+    def __init__(self, parent=None, name='', label='', text='', placeholder_text=''):
+        super(NodeTextEdit, self).__init__(parent, name, label)
+        bg_color = ViewerEnum.BACKGROUND_COLOR.value
+        text_color = tuple(map(lambda i, j: i - j, (255, 255, 255),
+                               bg_color))
+        text_sel_color = text_color
+        style_dict = {
+            'QTextEdit': {
+                'background': 'rgba({0},{1},{2},20)'.format(*bg_color),
+                'border': '1px solid rgb({0},{1},{2})'
+                          .format(*ViewerEnum.GRID_COLOR.value),
+                'border-radius': '3px',
+                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'selection-background-color': 'rgba({0},{1},{2},100)'
+                                              .format(*text_sel_color),
+            }
+        }
+        stylesheet = ''
+        for css_class, css in style_dict.items():
+            style = '{} {{\n'.format(css_class)
+            for elm_name, elm_val in css.items():
+                style += '  {}:{};\n'.format(elm_name, elm_val)
+            style += '}\n'
+            stylesheet += style
+        ledit = QtWidgets.QTextEdit()
+        ledit.setText(text)
+        ledit.setPlaceholderText(placeholder_text)
+        ledit.setStyleSheet(stylesheet)
+        ledit.setAlignment(QtCore.Qt.AlignCenter)
+        ledit.textChanged.connect(self.on_value_changed)
+        ledit.clearFocus()
+        self.set_custom_widget(ledit)
+        self.widget().setMaximumWidth(140)
+
+    @property
+    def type_(self):
+        return 'LineEditNodeWidget'
+
+    def get_value(self):
+        """
+        Returns the widgets current text.
+
+        Returns:
+            str: current text.
+        """
+        return str(self.get_custom_widget().text())
+
+    def set_value(self, text=''):
+        """
+        Sets the widgets current text.
+
+        Args:
+            text (str): new text.
+        """
+        if text != self.get_value():
+            self.get_custom_widget().setText(text)
+            self.on_value_changed()
+
+
 class NodeButton(NodeBaseWidget):
     """
     Displays as a ``QPushButton`` in a node.

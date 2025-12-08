@@ -16,7 +16,8 @@ from NodeGraphQt.widgets.node_widgets import (
     NodeCheckBox,
     NodeButton,
     NodeComboBox,
-    NodeLineEdit
+    NodeLineEdit,
+    NodeTextEdit,
 )
 
 
@@ -242,7 +243,7 @@ class BaseNode(NodeObject):
         #: redraw node to address calls outside the "__init__" func.
         self.view.draw_node()
 
-    def add_text_input(self, name, label='', text='', placeholder_text='',
+    def add_text_input(self, name, label='', text='', placeholder_text='', type="line",
                        tooltip=None, tab=None):
         """
         Creates a custom property with the :meth:`NodeObject.create_property`
@@ -261,19 +262,27 @@ class BaseNode(NodeObject):
             tooltip (str): widget tooltip.
             tab (str): name of the widget tab to display in.
         """
+        if type == "line":
+            widget_type = NodePropWidgetEnum.QLINE_EDIT.value
+        else:
+            widget_type = NodePropWidgetEnum.QTEXT_EDIT.value
         self.create_property(
             name,
             value=text,
-            widget_type=NodePropWidgetEnum.QLINE_EDIT.value,
+            widget_type=widget_type,
             widget_tooltip=tooltip,
             tab=tab
         )
-        widget = NodeLineEdit(self.view, name, label, text, placeholder_text)
+        if type == "line":
+            widget = NodeLineEdit(self.view, name, label, text, placeholder_text)
+        else:
+            widget = NodeTextEdit(self.view, name, label, text, placeholder_text)
         widget.setToolTip(tooltip or '')
         widget.value_changed.connect(lambda k, v: self.set_property(k, v))
         self.view.add_widget(widget)
         #: redraw node to address calls outside the "__init__" func.
         self.view.draw_node()
+        
     def add_button(self, name, label='', text='', tooltip=None, tab=None):
         """
         Creates and embeds a QPushButton widget into the node.
