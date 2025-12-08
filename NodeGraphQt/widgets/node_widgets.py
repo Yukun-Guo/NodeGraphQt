@@ -336,7 +336,7 @@ class NodeLineEdit(NodeBaseWidget):
             'QLineEdit': {
                 'background': 'rgba({0},{1},{2},20)'.format(*bg_color),
                 'border': '1px solid rgb({0},{1},{2})'
-                          .format(*ViewerEnum.GRID_COLOR.value),
+                          .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
                 'color': 'rgba({0},{1},{2},150)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
@@ -406,7 +406,7 @@ class NodeTextEdit(NodeBaseWidget):
             'QTextEdit': {
                 'background': 'rgba({0},{1},{2},20)'.format(*bg_color),
                 'border': '1px solid rgb({0},{1},{2})'
-                          .format(*ViewerEnum.GRID_COLOR.value),
+                          .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
                 'color': 'rgba({0},{1},{2},150)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
