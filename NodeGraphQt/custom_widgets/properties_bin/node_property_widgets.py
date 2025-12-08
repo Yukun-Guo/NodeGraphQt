@@ -413,7 +413,7 @@ class NodePropEditorWidget(QtWidgets.QWidget):
             tab_mapping[tab_name].append((prop_name, prop_val))
 
         # add tabs.
-        reserved_tabs = ['Node', 'Ports']
+        reserved_tabs = ['Node', 'Ports', 'Info']
         for tab in sorted(tab_mapping.keys()):
             if tab in reserved_tabs:
                 print('tab name "{}" is reserved by the "NodePropWidget" '
@@ -479,6 +479,24 @@ class NodePropEditorWidget(QtWidgets.QWidget):
             widget.value_changed.connect(self._on_property_changed)
 
         self.type_wgt.setText(model.get_property('type_') or '')
+
+        # add "Info" tab for node information.
+        self.add_tab('Info')
+        info_window = self.__tab_windows['Info']
+        if 'info' in model.custom_properties:
+            wid_type = model.get_widget_type('info')
+            if wid_type != 0:
+                info_widget = widget_factory.get_widget(wid_type)
+                if info_widget:
+                    info_widget.set_name('info')
+                    info_window.add_widget(
+                        name='info',
+                        widget=info_widget,
+                        value=model.get_property('info'),
+                        label='Description',
+                        tooltip='Node information and description'
+                    )
+                    info_widget.value_changed.connect(self._on_property_changed)
 
         # add "ports" tab connections.
         ports_container = None
