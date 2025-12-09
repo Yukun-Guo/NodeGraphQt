@@ -377,7 +377,7 @@ class NodeItem(AbstractNodeItem):
         side_padding = 0.0
         if all([widget_width, p_input_text_width, p_output_text_width]):
             port_text_width = max([p_input_text_width, p_output_text_width])
-            port_text_width *= 2
+            port_text_width *= 1.7
         elif widget_width:
             side_padding = 10
 

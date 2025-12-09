@@ -557,6 +557,7 @@ class NodeCheckBox(NodeBaseWidget):
         style_dict = {
             'QCheckBox': {
                 'color': 'rgba({0},{1},{2},230)'.format(*text_color),
+                'font-size': '10pt',
             }
         }
         stylesheet = ''
@@ -570,7 +571,7 @@ class NodeCheckBox(NodeBaseWidget):
         _cbox.setChecked(state)
         _cbox.setMinimumWidth(80)
         font = _cbox.font()
-        font.setPointSize(11)
+        font.setPointSize(10)
         _cbox.setFont(font)
         _cbox.stateChanged.connect(self.on_value_changed)
         self.set_custom_widget(_cbox)
