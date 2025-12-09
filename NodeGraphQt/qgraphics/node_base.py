@@ -379,13 +379,14 @@ class NodeItem(AbstractNodeItem):
             port_text_width = max([p_input_text_width, p_output_text_width])
             port_text_width *= 1.7
         elif widget_width:
-            side_padding = 10
+            side_padding = 1.0
 
         width = port_width + max([text_w, port_text_width]) + side_padding
         height = max([text_h, p_input_height, p_output_height, widget_height])
         if widget_width:
             # add additional width for node widget.
-            width += widget_width
+            # width += widget_width
+            width = max(text_w,widget_width + port_width +port_text_width + side_padding)
         if widget_height:
             # add bottom margin for node widget.
             height += 4.0
