@@ -508,6 +508,7 @@ class NodeItem(AbstractNodeItem):
         y = rect.y() + v_offset
         inputs = [p for p in self.inputs if p.isVisible()]
         outputs = [p for p in self.outputs if p.isVisible()]
+        widget_spacing = 1  # 1 pixel spacing between widgets
         for widget in self._widgets.values():
             if not widget.isVisible():
                 continue
@@ -522,19 +523,25 @@ class NodeItem(AbstractNodeItem):
                 x = rect.center().x() - (widget_rect.width() / 2)
                 widget.widget().setTitleAlign('center')
             widget.setPos(x, y)
-            y += widget_rect.height()
+            y += widget_rect.height() + widget_spacing
 
     def _align_widgets_vertical(self, v_offset):
         if not self._widgets:
             return
         rect = self.boundingRect()
         y = rect.center().y() + v_offset
+        widget_spacing = 1  # 1 pixel spacing between widgets
         widget_height = 0.0
+        visible_count = 0
         for widget in self._widgets.values():
             if not widget.isVisible():
                 continue
             widget_rect = widget.boundingRect()
             widget_height += widget_rect.height()
+            visible_count += 1
+        # Add spacing between widgets
+        if visible_count > 1:
+            widget_height += widget_spacing * (visible_count - 1)
         y -= widget_height / 2
 
         for widget in self._widgets.values():
@@ -544,7 +551,7 @@ class NodeItem(AbstractNodeItem):
             x = rect.center().x() - (widget_rect.width() / 2)
             widget.widget().setTitleAlign('center')
             widget.setPos(x, y)
-            y += widget_rect.height()
+            y += widget_rect.height() + widget_spacing
 
     def align_widgets(self, v_offset=0.0):
         """

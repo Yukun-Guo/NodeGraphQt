@@ -10,11 +10,11 @@ class _NodeGroupBox(QtWidgets.QGroupBox):
     def __init__(self, label, parent=None):
         super(_NodeGroupBox, self).__init__(parent)
         layout = QtWidgets.QVBoxLayout(self)
-        layout.setSpacing(1)
+        layout.setSpacing(0)
         self.setTitle(label)
 
     def setTitle(self, text):
-        margin = (0, 2, 0, 0) if text else (0, 0, 0, 0)
+        margin = (0, 0, 0, 0)
         self.layout().setContentsMargins(*margin)
         super(_NodeGroupBox, self).setTitle(text)
 
@@ -25,8 +25,8 @@ class _NodeGroupBox(QtWidgets.QGroupBox):
             'QGroupBox': {
                 'background-color': 'rgba(0, 0, 0, 0)',
                 'border': '0px solid rgba(0, 0, 0, 0)',
-                'margin-top': '1px',
-                'padding-bottom': '2px',
+                'margin-top': '0px',
+                'padding-bottom': '0px',
                 'padding-left': '1px',
                 'padding-right': '1px',
                 'font-size': '8pt',
@@ -39,9 +39,9 @@ class _NodeGroupBox(QtWidgets.QGroupBox):
             }
         }
         if self.title():
-            style_dict['QGroupBox']['padding-top'] = '14px'
+            style_dict['QGroupBox']['padding-top'] = '12px'
         else:
-            style_dict['QGroupBox']['padding-top'] = '2px'
+            style_dict['QGroupBox']['padding-top'] = '0px'
 
         if align == 'center':
             style_dict['QGroupBox::title']['subcontrol-position'] = 'top center'
