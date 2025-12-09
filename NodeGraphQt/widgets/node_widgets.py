@@ -363,7 +363,8 @@ class NodeLineEdit(NodeBaseWidget):
         ledit.editingFinished.connect(self.on_value_changed)
         ledit.clearFocus()
         self.set_custom_widget(ledit)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -433,7 +434,8 @@ class NodeTextEdit(NodeBaseWidget):
         ledit.textChanged.connect(self.on_value_changed)
         ledit.clearFocus()
         self.set_custom_widget(ledit)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -580,7 +582,8 @@ class NodeCheckBox(NodeBaseWidget):
         _cbox.setFont(font)
         _cbox.stateChanged.connect(self.on_value_changed)
         self.set_custom_widget(_cbox)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -651,7 +654,8 @@ class NodeSpinner(NodeBaseWidget):
         spinner.valueChanged.connect(self.on_value_changed)
         spinner.clearFocus()
         self.set_custom_widget(spinner)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -724,7 +728,8 @@ class NodeDoubleSpinBox(NodeBaseWidget):
         spinner.valueChanged.connect(self.on_value_changed)
         spinner.clearFocus()
         self.set_custom_widget(spinner)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -767,7 +772,8 @@ class NodeColorPicker(NodeBaseWidget):
         super(NodeColorPicker, self).__init__(parent, name, label)
         self._color = color
         button = QtWidgets.QPushButton()
-        button.setMaximumWidth(140)
+        button.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         button.setMinimumHeight(24)
         button.clicked.connect(self._on_color_dialog)
         self.set_custom_widget(button)
@@ -834,7 +840,8 @@ class NodeColor4Picker(NodeBaseWidget):
         super(NodeColor4Picker, self).__init__(parent, name, label)
         self._color = color
         button = QtWidgets.QPushButton()
-        button.setMaximumWidth(140)
+        button.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         button.setMinimumHeight(24)
         button.clicked.connect(self._on_color_dialog)
         self.set_custom_widget(button)
@@ -907,7 +914,8 @@ class NodeSlider(NodeBaseWidget):
         slider.setMaximum(max_val)
         slider.setValue(value)
         slider.setMinimumWidth(100)
-        slider.setMaximumWidth(140)
+        slider.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         slider.valueChanged.connect(self.on_value_changed)
         self.set_custom_widget(slider)
 
@@ -963,7 +971,8 @@ class NodeDoubleSlider(NodeBaseWidget):
         slider.setMaximum(int(max_val * self._scale))
         slider.setValue(int(value * self._scale))
         slider.setMinimumWidth(100)
-        slider.setMaximumWidth(140)
+        slider.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         slider.valueChanged.connect(self.on_value_changed)
         self.set_custom_widget(slider)
 
@@ -1010,7 +1019,8 @@ class NodeFileOpen(NodeBaseWidget):
         self._file_filter = file_filter
         
         button = QtWidgets.QPushButton('Browse...')
-        button.setMaximumWidth(140)
+        button.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         button.setMinimumHeight(24)
         button.clicked.connect(self._on_file_dialog)
         self.set_custom_widget(button)
@@ -1067,7 +1077,8 @@ class NodeFileSave(NodeBaseWidget):
         self._file_filter = file_filter
         
         button = QtWidgets.QPushButton('Save As...')
-        button.setMaximumWidth(140)
+        button.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                     QtWidgets.QSizePolicy.Fixed)
         button.setMinimumHeight(24)
         button.clicked.connect(self._on_file_dialog)
         self.set_custom_widget(button)
@@ -1168,7 +1179,8 @@ class NodeVector2(NodeBaseWidget):
         layout.addWidget(self._spin_y)
         
         self.set_custom_widget(widget)
-        self.widget().setMaximumWidth(280)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -1267,7 +1279,8 @@ class NodeVector3(NodeBaseWidget):
         layout.addWidget(self._spin_z)
         
         self.set_custom_widget(widget)
-        self.widget().setMaximumWidth(420)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -1376,7 +1389,8 @@ class NodeVector4(NodeBaseWidget):
         layout.addWidget(self._spin_w)
         
         self.set_custom_widget(widget)
-        self.widget().setMaximumWidth(560)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -1452,7 +1466,8 @@ class NodeFloat(NodeBaseWidget):
         ledit.editingFinished.connect(self.on_value_changed)
         ledit.clearFocus()
         self.set_custom_widget(ledit)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):
@@ -1527,7 +1542,8 @@ class NodeInt(NodeBaseWidget):
         ledit.editingFinished.connect(self.on_value_changed)
         ledit.clearFocus()
         self.set_custom_widget(ledit)
-        self.widget().setMaximumWidth(140)
+        self.widget().setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                         QtWidgets.QSizePolicy.Fixed)
 
     @property
     def type_(self):

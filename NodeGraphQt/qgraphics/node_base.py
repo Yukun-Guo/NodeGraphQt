@@ -383,9 +383,8 @@ class NodeItem(AbstractNodeItem):
 
         width = port_width + max([text_w, port_text_width]) + side_padding
         height = max([text_h, p_input_height, p_output_height, widget_height])
-        if widget_width:
-            # add additional width for node widget.
-            width += widget_width
+        # Do not add widget width to node width here — embedded widgets
+        # will expand to fill the node interior during alignment.
         if widget_height:
             # add bottom margin for node widget.
             height += 4.0
@@ -513,6 +512,17 @@ class NodeItem(AbstractNodeItem):
             if not widget.isVisible():
                 continue
             widget_rect = widget.boundingRect()
+            # compute available width for the embedded widget (leave 10px padding on both sides)
+            available_width = max(0.0, rect.width() - 20.0)
+            # set widget width so the proxy's boundingRect reflects the expanded size
+            try:
+                widget.widget().setFixedWidth(int(available_width))
+            except Exception:
+                # if underlying widget doesn't support setFixedWidth, ignore
+                pass
+
+            # recalc bounding rect after resizing
+            widget_rect = widget.boundingRect()
             if not inputs:
                 x = rect.left() + 10
                 widget.widget().setTitleAlign('left')
@@ -599,6 +609,14 @@ class NodeItem(AbstractNodeItem):
         for widget in self._widgets.values():
             if not widget.isVisible():
                 continue
+            widget_rect = widget.boundingRect()
+            # set embedded widget width to available node width (leave 10px padding each side)
+            available_width = max(0.0, rect.width() - 20.0)
+            try:
+                widget.widget().setFixedWidth(int(available_width))
+            except Exception:
+                pass
+            # recalc bounding rect after resizing
             widget_rect = widget.boundingRect()
             x = rect.center().x() - (widget_rect.width() / 2)
             widget.widget().setTitleAlign('center')
