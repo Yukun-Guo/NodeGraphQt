@@ -221,6 +221,11 @@ class NodeBaseWidget(QtWidgets.QGraphicsProxyWidget):
             raise NodeWidgetError('Custom node widget already set.')
         group = _NodeGroupBox(self._label)
         group.add_node_widget(widget)
+        # allow the embedded group to expand horizontally inside the node
+        group.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                            QtWidgets.QSizePolicy.Preferred)
+        group.setMinimumWidth(10)
+        group.setMaximumWidth(16777215)
         self.setWidget(group)
 
     def get_label(self):

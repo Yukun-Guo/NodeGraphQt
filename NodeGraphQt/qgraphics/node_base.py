@@ -524,6 +524,58 @@ class NodeItem(AbstractNodeItem):
                 widget.widget().setTitleAlign('center')
             widget.setPos(x, y)
             y += widget_rect.height() + widget_spacing
+        # Make embedded widgets expand to available horizontal space but
+        # leave room on the right for output port text labels.
+        # Calculate maximum width of visible output text items.
+        max_output_text = 0.0
+        for text in self._output_items.values():
+            if text.isVisible():
+                w = text.boundingRect().width()
+                if w > max_output_text:
+                    max_output_text = w
+
+        left_margin = 10.0
+        right_margin = 10.0 + max_output_text
+        available_width = rect.width() - (left_margin + right_margin)
+        if available_width <= 0:
+            return
+
+        # Resize/position widgets to fill the available area while preserving
+        # vertical stacking order applied above.
+        y = rect.y() + v_offset
+        for widget in self._widgets.values():
+            if not widget.isVisible():
+                continue
+            widget_rect = widget.boundingRect()
+            # choose widget width to be either its preferred or the available width
+            new_w = widget_rect.width()
+            if available_width > widget_rect.width():
+                new_w = available_width
+            # keep height unchanged
+            new_h = widget_rect.height()
+
+            # position depending on ports presence
+            if not inputs:
+                x = rect.left() + left_margin
+            elif not outputs:
+                x = rect.right() - new_w - right_margin
+            else:
+                # center within the available area
+                x = rect.left() + left_margin + ((available_width - new_w) / 2.0)
+
+            # resize the proxy widget so its boundingRect updates
+            try:
+                widget.resize(new_w, new_h)
+            except Exception:
+                # fallback: attempt to resize the inner widget
+                try:
+                    inner = widget.widget()
+                    inner.resize(new_w, new_h)
+                except Exception:
+                    pass
+
+            widget.setPos(x, y)
+            y += new_h + widget_spacing
 
     def _align_widgets_vertical(self, v_offset):
         if not self._widgets:
