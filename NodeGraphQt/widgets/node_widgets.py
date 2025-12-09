@@ -34,7 +34,7 @@ class _NodeGroupBox(QtWidgets.QGroupBox):
             'QGroupBox::title': {
                 'subcontrol-origin': 'margin',
                 'subcontrol-position': 'top center',
-                'color': 'rgba({0}, {1}, {2}, 100)'.format(*text_color),
+                'color': 'rgba({0}, {1}, {2}, 230)'.format(*text_color),
                 'padding': '0px',
             }
         }
