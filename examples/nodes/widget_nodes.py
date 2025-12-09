@@ -62,6 +62,9 @@ class CheckboxNode(BaseNode):
     def __init__(self):
         super(CheckboxNode, self).__init__()
 
+        # set node information
+        self.set_info('This is an example to add a checkbox to node')
+
         # create the checkboxes.
         self.add_checkbox('cb_1', '', 'Checkbox 1', True)
         self.add_checkbox('cb_2', '', 'Checkbox 2', False)
