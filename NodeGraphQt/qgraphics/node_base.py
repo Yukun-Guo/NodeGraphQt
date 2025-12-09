@@ -375,11 +375,16 @@ class NodeItem(AbstractNodeItem):
             widget_height += w_height
 
         side_padding = 0.0
-        if all([widget_width, p_input_text_width, p_output_text_width]):
-            port_text_width = max([p_input_text_width, p_output_text_width])
-            port_text_width *= 1.7
-        elif widget_width:
-            side_padding = 10
+        # when widgets are present, ensure we leave extra space for port
+        # text (particularly output text) so the widget doesn't overlap it.
+        if widget_width:
+            if p_input_text_width and p_output_text_width:
+                port_text_width = max(p_input_text_width, p_output_text_width) * 1.7
+            # leave extra side padding so widget does not overlap output text
+            side_padding = max(10.0, p_output_text_width + 10.0)
+        else:
+            if p_input_text_width and p_output_text_width:
+                port_text_width = max(p_input_text_width, p_output_text_width) * 1.7
 
         width = port_width + max([text_w, port_text_width]) + side_padding
         height = max([text_h, p_input_height, p_output_height, widget_height])
