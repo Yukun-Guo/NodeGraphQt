@@ -338,7 +338,7 @@ class NodeLineEdit(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -408,7 +408,7 @@ class NodeTextEdit(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -484,7 +484,7 @@ class NodeButton(NodeBaseWidget):
                 'background-color': 'rgba(40, 40, 40, 200)',
                 'border': '1px solid rgba(100, 100, 100, 255)',
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'font-size': '10pt',
                 'padding': '2px 15px',
                 'max-height': '20px',
@@ -556,7 +556,7 @@ class NodeCheckBox(NodeBaseWidget):
                                ViewerEnum.BACKGROUND_COLOR.value))
         style_dict = {
             'QCheckBox': {
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
             }
         }
         stylesheet = ''
@@ -625,7 +625,7 @@ class NodeSpinner(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -697,7 +697,7 @@ class NodeDoubleSpinBox(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -1124,7 +1124,7 @@ class NodeVector2(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -1214,7 +1214,7 @@ class NodeVector3(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -1314,7 +1314,7 @@ class NodeVector4(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -1425,7 +1425,7 @@ class NodeFloat(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
@@ -1500,7 +1500,7 @@ class NodeInt(NodeBaseWidget):
                 'border': '1px solid rgb({0},{1},{2})'
                           .format(*ViewerEnum.ITEM_BORDER_COLOR.value),
                 'border-radius': '3px',
-                'color': 'rgba({0},{1},{2},150)'.format(*text_color),
+                'color': 'rgba({0},{1},{2},230)'.format(*text_color),
                 'selection-background-color': 'rgba({0},{1},{2},100)'
                                               .format(*text_sel_color),
             }
