@@ -64,7 +64,7 @@ class NodeModel(object):
         self.name = 'node'
         self.color = (13, 18, 23, 255)
         self.border_color = (74, 84, 85, 255)
-        self.text_color = (255, 255, 255, 180)
+        self.text_color = (255, 255, 255, 250)
         self.disabled = False
         self.selected = False
         self.visible = True
@@ -354,7 +354,7 @@ class NodeModel(object):
                     'name': 'foo node',
                     'color': (48, 58, 69, 255),
                     'border_color': (85, 100, 100, 255),
-                    'text_color': (255, 255, 255, 180),
+                    'text_color': (255, 255, 255, 250),
                     'type_': 'io.github.jchanvfx.FooNode',
                     'selected': False,
                     'disabled': False,
