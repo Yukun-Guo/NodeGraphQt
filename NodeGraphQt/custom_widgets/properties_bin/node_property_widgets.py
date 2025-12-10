@@ -83,10 +83,11 @@ class _PropertiesContainer(QtWidgets.QWidget):
         super(_PropertiesContainer, self).__init__(parent)
         self.__layout = QtWidgets.QGridLayout()
         self.__layout.setColumnStretch(1, 1)
-        self.__layout.setSpacing(6)
+        self.__layout.setSpacing(3)
 
         layout = QtWidgets.QVBoxLayout(self)
         layout.setAlignment(QtCore.Qt.AlignTop)
+        layout.setContentsMargins(1,1,1,1)
         layout.addLayout(self.__layout)
 
         self.__property_widgets = {}
@@ -123,8 +124,8 @@ class _PropertiesContainer(QtWidgets.QWidget):
         label_flags = QtCore.Qt.AlignCenter | QtCore.Qt.AlignRight
         if widget.__class__.__name__ == 'PropTextEdit':
             label_flags = label_flags | QtCore.Qt.AlignTop
-
-        self.__layout.addWidget(label_widget, row, 0, label_flags)
+        if label:
+            self.__layout.addWidget(label_widget, row, 0, label_flags)
         self.__layout.addWidget(widget, row, 1)
         self.__property_widgets[name] = widget
 
@@ -210,8 +211,22 @@ class _PortConnectionsContainer(QtWidgets.QWidget):
         group_box.setCheckable(True)
         group_box.setChecked(True)
         group_box.setTitle(title)
-        group_box.setLayout(QtWidgets.QVBoxLayout())
-
+        group_box.setTitle(title)
+        layout = QtWidgets.QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        group_box.setLayout(layout)
+        group_box.setStyleSheet(
+            "QGroupBox {\n"
+            "    margin-top: 18px;\n"
+            "}\n"
+            "QGroupBox::title {\n"
+            "    subcontrol-origin: margin;\n"
+            "    subcontrol-position: top center;\n"
+            "    padding: 0px 18px;\n"
+            "}\n"
+        )
+        
+        
         headers = ['Locked', 'Name', 'Connections', '']
         tree_widget = QtWidgets.QTreeWidget()
         tree_widget.setColumnCount(len(headers))
@@ -493,7 +508,7 @@ class NodePropEditorWidget(QtWidgets.QWidget):
                 if info_widget:
                     info_widget.set_name('info')
                     info_window.add_widget(
-                        name='info',
+                        name='',
                         widget=info_widget,
                         value=model.get_property('info'),
                         label='',
