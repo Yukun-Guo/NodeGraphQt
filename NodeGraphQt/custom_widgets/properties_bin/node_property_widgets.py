@@ -496,7 +496,7 @@ class NodePropEditorWidget(QtWidgets.QWidget):
                         name='info',
                         widget=info_widget,
                         value=model.get_property('info'),
-                        label='Description',
+                        label='',
                         tooltip='Node information and description'
                     )
                     info_widget.value_changed.connect(self._on_property_changed)
