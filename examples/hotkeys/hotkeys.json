@@ -231,6 +231,30 @@
             "file":"./hotkey_functions.py",
             "function_name":"layout_v_mode",
             "shortcut":"Shift+2"
+          },
+          {
+            "type":"separator"
+          },
+          {
+            "type":"command",
+            "label":"Auto Layout (Spring)",
+            "file":"./hotkey_functions.py",
+            "function_name":"auto_layout_spring",
+            "shortcut":"Ctrl+Shift+L"
+          },
+          {
+            "type":"command",
+            "label":"Auto Layout (Circular)",
+            "file":"./hotkey_functions.py",
+            "function_name":"auto_layout_circular",
+            "shortcut":""
+          },
+          {
+            "type":"command",
+            "label":"Auto Layout (Hierarchical)",
+            "file":"./hotkey_functions.py",
+            "function_name":"auto_layout_hierarchical",
+            "shortcut":""
           }
         ]
       }

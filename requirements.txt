@@ -1,1 +1,2 @@
 Qt.py>=1.4.1
+networkx>=2.5
